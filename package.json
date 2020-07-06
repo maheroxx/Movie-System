@@ -1,0 +1,24 @@
+{
+  "name": "web2project",
+  "version": "1.0.0",
+  "description": "Web 2.0 Project M2 Group 7. Created by Kimberly, Mahirah, Asyraf",
+  "main": "routes.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maheroxx/web2project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maheroxx/web2project/issues"
+  },
+  "homepage": "https://github.com/maheroxx/web2project#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  }
+}
