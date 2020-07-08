@@ -1,4 +1,7 @@
 var bodyParser = require('body-parser');
+var db = require('./services/dataservice.js');
+
+db.connect();
 
 var routes = function () {
     var router = require('express').Router();
@@ -18,5 +21,17 @@ var routes = function () {
     router.get('/', function(req, res) {
         res.sendFile(__dirname+"/views/index.html");
     });
+    router.get('/api/movies', function (req, res) {
+        db.getMovies(function (err, movies) {
+            if (err) {
+                res.status(500).send("Unable to get all movies");
+            } else {
+                res.status(200).send(rooms);
+            }
+        })
+    }); 
+
     return router;
 };
+
+module.exports = routes();
