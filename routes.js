@@ -1,4 +1,7 @@
 var bodyParser = require('body-parser');
+var db = require('./services/dataservice.js');
+
+db.connect();
 
 var routes = function () {
     var router = require('express').Router();
