@@ -18,5 +18,14 @@ var routes = function () {
     router.get('/', function(req, res) {
         res.sendFile(__dirname+"/views/index.html");
     });
+
+    router.get('/register', function(req, res) {
+        res.sendFile(__dirname+"/views/registration.html");
+    });
+
+    router.get('/login', function(req, res) {
+        res.sendFile(__dirname+"/views/login.html");
+    });
     return router;
 };
+module.exports = routes();
