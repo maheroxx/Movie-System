@@ -47,6 +47,11 @@ var database = {
         newCustomer.save(callback);
     },
 
+    getCustomer: function(u,p,callback)
+    {
+        customerModel.findOne({username: u}, {password: p},callback);
+    },
+
 };
 
 module.exports = database;
