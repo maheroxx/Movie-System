@@ -41,6 +41,11 @@ var routes = function () {
         res.sendFile(__dirname+"/views/index_after_login.html");
     });
 
+    //view profile
+    router.get('/profile', function(req, res) {
+        res.sendFile(__dirname+"/views/profile.html");
+    });
+
     // add customer to the database
     router.post('/register', function(req, res){
         var username = req.body.username;
@@ -93,6 +98,36 @@ var routes = function () {
         req.logOut();
         res.redirect('/');
     });
+
+    //view profile
+    router.get('/profile', function(req, res)
+    {
+        var id = req.params.id;
+        db.getCustomerById(id, function (err, customer) {
+            if (err) {
+                res.status(500).send("Unable to find a customer with this id");
+            } else {
+                res.status(200).send(customer);
+            }
+        });
+    });
+
+    router.put('/api/rooms', function (req, res) {
+        var data = req.body;
+        db.updateCustomer(data.username, data.email, data.mobilenumber, data.creditcard, data.password, function (err, customer) {
+            if (err) {
+                res.status(500).send("Unable to update the profile");
+            } else {
+                if (customer == null || customer.n == 0) {
+                    res.status(200).send("Nothing updated");
+                } else {
+                    res.status(200).send("Profile successfully updated");
+                }
+            }
+        })
+
+    });
+
 
     return router;
 };

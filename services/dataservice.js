@@ -52,6 +52,22 @@ var database = {
         customerModel.findOne({username: u}, {password: p},callback);
     },
 
+    getCustomerById: function(id,callback){
+        customerModel.findById(id,callback);
+    },
+
+    updateCustomer:function(id,u,e,m,c,p,callback){
+        var updateOptions = {
+            username: u,
+            email: e,
+            mobilenumber: m,
+            creditcard: c,
+            password: p
+        }
+
+        customerModel.findByIdAndUpdate(id,updateOptions,callback);
+    },
+
 };
 
 module.exports = database;
