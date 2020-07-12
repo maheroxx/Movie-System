@@ -123,7 +123,7 @@ var routes = function () {
         });
     });
 
-    router.put('/api/profile', function (req, res) {
+    router.put('/profile', function (req, res) {
         var data = req.body;
         db.updateCustomer(data.username, data.email, data.mobilenumber, data.creditcard, data.password, function (err, customer) {
             if (err) {
