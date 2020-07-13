@@ -29,15 +29,6 @@ var routes = function () {
         res.sendFile(__dirname+"/views/index.html");
     });
 
-    router.get('/api/movies', function (req, res) {
-        db.getMovies(function (err, movies) {
-            if (err) {
-                res.status(500).send("Unable to get all movies");
-            } else {
-                res.status(200).send(rooms);
-            }
-        })
-    }); 
 
     //view register page
     router.get('/register', function(req, res) {
@@ -62,6 +53,8 @@ var routes = function () {
     router.get('/search', function(req, res) {
         res.sendFile(__dirname+"/views/search.html");
     });
+
+   
 
     // add customer to the database
     router.post('/register', function(req, res){
@@ -102,6 +95,7 @@ var routes = function () {
         res.redirect('/');
     });
 
+    // display all the movies
     router.get('/movies', function(req, res)
     {
         db.getMovies(function(err, movies)
@@ -111,6 +105,7 @@ var routes = function () {
         
     });
 
+ 
     //view profile
     //http://localhost:3000/profile/5xxxxcxxxx
     router.get('/profile/:id', function(req, res)

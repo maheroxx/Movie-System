@@ -82,6 +82,8 @@ var database = {
     getMovies: function(callback){
         movieModel.find({}, callback);
     }
+
+   
 };
 
 module.exports = database;

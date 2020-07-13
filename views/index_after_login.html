@@ -5,40 +5,54 @@
 
     <body>
         <h1>EigaMovie</h1>
-        <h3>Welcome, <% customerModel.username%></h3>
-        <section class="movies">
-
-        </section>
+        <h3>Welcome</h3>
+     
         <script src="../js/jquery-3.5.0.min.js"></script>
 
-        <script>
-            const getBtn = document.getElementById('get_btn');
-            const getData = () => {
-                const xhr = new XMLHttpRequest();
-                xhr.open('GET','https://api.themoviedb.org/3/movie');
-
-                xhr.onload = () =>{
-                    const data = JSON.parse(xhr,response);
-                    console.log(data);
-                };
-
-                xhr.send();
-            };
-
-            const sendData = () => {};
-
-            getBtn.addEventListener('click', getData);
-
-        </script>
-        <form action="/search" method="GET">
-            <input type="text" name="keyword" id="keyword">
-            <input type="submit" id="get_btn" value="Search">
-        </form>
-        <form action="/profile" method="get">
+        <form action="/profile"  method="get">
             <input type="submit" value="View Profile">
         </form>
         <form action="/logout" method="get">
         <input type="submit" value="Logout">
         </form>
+
+        <form action="/search" method="GET">
+            <input type="text" name="keyword" id="keyword">
+            <input type="submit" id="get_btn" value="Search">
+        </form>
+
+        <section class="movies">
+            <h2>Movie List</h2>
+            <table border="1px black"  class="movielist">
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Genre</th>
+                    <th>Language</th>
+                    <th>Ranking</th>
+                    <th>Running Time</th>
+                </tr>
+              
+            </table>
+
+        </section>
+        <script>
+            $(document).ready(function(){
+                $.ajax({
+                    url: "/movies",
+                    method: "get"
+                })
+                .done(
+                    function(data){
+                    
+                        data.forEach(function(movie)
+                        {
+                            $('.movielist').append("<tr> <td>"+ movie.title + "</td> <td>"+ movie.description + "</td> <td>"+ movie.genre+ "</td> <td>"+ movie.language + "</td> <td>" + movie.ranking+ "</td> <td>" + movie.runningtime + "</td> <tr>");
+                           
+                        })
+                    }
+                )
+            })
+        </script>
     </body>
 </html>

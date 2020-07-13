@@ -6,6 +6,14 @@
     <body>
         <h1>EigaMovie</h1>
 
+        <a href="/register">Register Now</a><br>
+        <a href="/login">Login</a>
+
+        <form action="/search" method="GET">
+            <input type="text" name="keyword" id="keyword">
+            <input type="submit" id="get_btn" value="Search">
+        </form>
+
         <section class="movies">
             <h2>Movie List</h2>
             <table border="1px black"  class="movielist">
@@ -17,14 +25,7 @@
                     <th>Ranking</th>
                     <th>Running Time</th>
                 </tr>
-                <tr> 
-                    <td class="title"></td>
-                    <td class="description"></td>
-                    <td id="genre"></td>
-                    <td id="lang"></td>
-                    <td id="rank"></td>
-                    <td id="runtime"></td>
-                </tr>
+              
             </table>
 
         </section>
@@ -37,13 +38,10 @@
                 })
                 .done(
                     function(data){
-                        if(data.length> 0){
-                            $(".movies").show();
-
-                        }
+                       
                         data.forEach(function(movie)
                         {
-                            $('.movielist').append("<tr> <td>"+ movie.title + "</td> <td>"+ movie.description + "</td> <td>"+ movie.genre+ "</td> <td>"+ movie.language + "</td> <td>" + movie.ranking+ "</td> <td>" + movie.runningtime + "</td> <tr>");
+                            $('.movielist').append("<tr> <td> <a href = '/movies?id="+ movie._id +"'>"+ movie.title + "</a> </td> <td>"+ movie.description + "</td> <td>"+ movie.genre+ "</td> <td>"+ movie.language + "</td> <td>" + movie.ranking+ "</td> <td>" + movie.runningtime + "</td> <tr>");
                            
                         })
                     }
@@ -51,7 +49,5 @@
             })
         </script>
 
-        <a href="/register">Register Now</a><br>
-        <a href="/login">Login</a>
     </body>
 </html>
