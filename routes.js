@@ -103,7 +103,7 @@ var routes = function () {
     });
 
     //view profile
-    router.get('/profile', function(req, res)
+    router.get('/profile/:id', function(req, res)
     {
         var id = req.params.id;
         db.getCustomerById(id, function (err, customer) {
