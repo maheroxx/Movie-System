@@ -49,7 +49,7 @@ var database = {
 
     getCustomer: function(u,p,callback)
     {
-        customerModel.findOne({username: u}, {password: p},callback);
+        customerModel.findOne({username: u,password: p},callback);
     },
 
     /*getCustomerInfo : function(callback)
