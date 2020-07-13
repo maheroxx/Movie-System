@@ -6,8 +6,8 @@
   "description": "Seok-woo and his daughter are on a train to Busan on the latter's birthday to see his wife. However, the journey turns into a nightmare when they are trapped amidst a zombie outbreak in South Korea.",
   "genre": "Horror",
   "language": "Korean",
-  "ranking": "7.5",
-  "running time": "121 mins"
+  "ranking": 7.5,
+  "runningtime": "121 mins"
 },{
   "_id": {
     "$oid": "5f0bef5b9dc6c53defb54118"
@@ -16,8 +16,8 @@
   "description": "My Spy follows JJ a hardened CIA operative (Dave Bautista) who has been demoted and finds himself at the mercy of a precocious 9-year-old girl, named Sophie (Chloe Coleman) where he has been sent undercover begrudgingly to surveil her family. When Sophie discovers hidden cameras in her apartment she uses her tech savviness to locate where the surveillance operation is set. In exchange for not blowing JJ’s cover Sophie convinces him to spend time with her and teach her to be a spy. Despite his reluctance JJ finds he is no match for Sophie’s disarming charm and wit.",
   "genre": "Comedy",
   "language": "English",
-  "ranking": "7",
-  "running time": "100 mins"
+  "ranking": 7,
+  "runningtime": "100 mins"
 },{
   "_id": {
     "$oid": "5f0bf136716dc236e833546b"
@@ -26,8 +26,8 @@
   "description": "In the leap month in 2016, six Tunghu University students, who were running a camp, held a test of courage on the (in)famous Female Ghost Bridge. The Female Ghost Bridge is a forbidden spot on campus since rumor has it that years ago, a girl jumped off the bridge and drowned herself for the man she loved. Ever since then so many ghost stories about the tragedy have been circulating. In order to promote the test of courage, a group of students daringly did a live stream on the bridge late at night. To their astonishment, they caught the female ghost on camera, and it went viral with millions of viewers online. However, the group of students went missing soon afterwards... No one knows what happened, and the ghost stories about the Female Ghost Bridge keep spreading. Exactly four years later, an investigative journalist Lien Shu-yu (played by Summer Meng) comes to the Female Ghost Bridge with a cameraman, trying to find out about the truth. They can never expect that they would stumble upon the hell underneath the bridge, in which several spirits are forever trapped…",
   "genre": "Horror",
   "language": "Mandarin",
-  "ranking": "8",
-  "running time": "88 mins"
+  "ranking": 8,
+  "runningtime": "88 mins"
 },{
   "_id": {
     "$oid": "5f0bf218716dc236e833546c"
@@ -36,8 +36,8 @@
   "description": "Rowan Atkinson returns as the much-loved accidental secret agent in “Johnny English Strikes Again”. When a cyber-attack reveals the identity of all active undercover agents in Britain, the country’s only hope is called out of retirement. English’s new mission is his most critical to date: Dive head first into action to find the mastermind hacker. A man with few skills and analogue methods, English must overcome the challenges of modern technology—or his newest mission will become the Secret Service’s last.",
   "genre": "Comedy",
   "language": "English",
-  "ranking": "8",
-  "running time": "89 mins"
+  "ranking": 8,
+  "runningtime": "89 mins"
 },{
   "_id": {
     "$oid": "5f0bf356716dc236e833546d"
@@ -46,6 +46,6 @@
   "description": "Global icon Dwayne Johnson leads the cast of Legendary's Skyscraper as former FBI Hostage Rescue Team leader and U.S. war veteran Will Sawyer, who now assesses security for skyscrapers. On assignment in China he finds the tallest, safest building in the world suddenly ablaze, and he's been framed for it. A wanted man on the run, Will must find those responsible, clear his name and somehow rescue his family who is trapped inside the building...above the fire line.",
   "genre": "Adventure",
   "language": "English",
-  "ranking": "8",
-  "running time": "103 mins"
+  "ranking": 8,
+  "runningtime": "103 mins"
 }]

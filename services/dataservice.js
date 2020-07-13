@@ -15,7 +15,13 @@ var database = {
                 console.log("Connected to Mongo DB");
                 //initialize values
                 movieSchema = schema({
-                    
+                    title: String,
+                    description: String,
+                    genre: String,
+                    language: String,
+                    ranking: Number,
+                    runningtime: String
+
                 });
 
                 customerSchema = schema({
@@ -28,7 +34,7 @@ var database = {
 
                 var connection = mongoose.connection;
                 customerModel = connection.model("customer", customerSchema)
-                movieModel = connection.model("Movie", movieSchema);
+                movieModel = connection.model("movies", movieSchema);
             } else {
                 console.log("Error connecting to Mongo DB");
             }
@@ -72,7 +78,10 @@ var database = {
 
         customerModel.findByIdAndUpdate(id,updateOptions,callback);
     },
-
+    
+    getMovies: function(callback){
+        movieModel.find({}, callback);
+    }
 };
 
 module.exports = database;

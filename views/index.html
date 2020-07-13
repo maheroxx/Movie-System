@@ -7,9 +7,49 @@
         <h1>EigaMovie</h1>
 
         <section class="movies">
+            <h2>Movie List</h2>
+            <table border="1px black"  class="movielist">
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Genre</th>
+                    <th>Language</th>
+                    <th>Ranking</th>
+                    <th>Running Time</th>
+                </tr>
+                <tr> 
+                    <td class="title"></td>
+                    <td class="description"></td>
+                    <td id="genre"></td>
+                    <td id="lang"></td>
+                    <td id="rank"></td>
+                    <td id="runtime"></td>
+                </tr>
+            </table>
 
         </section>
         <script src="../js/jquery-3.5.0.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $.ajax({
+                    url: "/movies",
+                    method: "get"
+                })
+                .done(
+                    function(data){
+                        if(data.length> 0){
+                            $(".movies").show();
+
+                        }
+                        data.forEach(function(movie)
+                        {
+                            $('.movielist').append("<tr> <td>"+ movie.title + "</td> <td>"+ movie.description + "</td> <td>"+ movie.genre+ "</td> <td>"+ movie.language + "</td> <td>" + movie.ranking+ "</td> <td>" + movie.runningtime + "</td> <tr>");
+                           
+                        })
+                    }
+                )
+            })
+        </script>
 
         <a href="/register">Register Now</a><br>
         <a href="/login">Login</a>

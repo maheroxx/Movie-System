@@ -102,6 +102,15 @@ var routes = function () {
         res.redirect('/');
     });
 
+    router.get('/movies', function(req, res)
+    {
+        db.getMovies(function(err, movies)
+        {
+            res.send(movies);
+        })
+        
+    });
+
     //view profile
     //http://localhost:3000/profile/5xxxxcxxxx
     router.get('/profile/:id', function(req, res)
