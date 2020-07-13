@@ -4,6 +4,8 @@ var passport		= 	require('passport');
 var localStrategy	=	require('passport-local').Strategy;
 //const customersController = require('./controllers/customerController.js');
 
+//router.use(passport.initialize());
+//router.use(passport.session());
 db.connect();
 
 var routes = function () {
@@ -46,32 +48,20 @@ var routes = function () {
         res.sendFile(__dirname+"/views/profile.html");
     });
 
+    router.get('/search', function(req, res) {
+        res.sendFile(__dirname+"/views/search.html");
+    });
+
     // add customer to the database
     router.post('/register', function(req, res){
         var username = req.body.username;
         var email = req.body.email;
         var mobilenumber = req.body.mobilenumber;
         var password =req.body.password;
+        var confirmpass = req.body.confirmpass;
         var creditcard = req.body.creditcard;
 
-       /* req.checkBody( 'email','Email Field is Required').notEmpty();
-        req.checkBody('email','Email not Valid').isEmail();
-        req.checkBody('username','Username Field is Required').notEmpty();
-        req.checkBody('password','Password Field is Required').notEmpty();
-	req.checkBody('confirmpassword','Passwords do not Match').equals(req.body.password);
-
-    var errors = req.validationErrors();
-
-        if(errors)
-        {
-            res.render('register',{
-                errors 			: 	errors
-              
-                //confirmpassword : 	confirmpassword
-            });
-        }else
-        {*/
-        
+      
         db.addCustomer(username,email,mobilenumber,creditcard,password
             ,function(err,customer)
             {
@@ -81,6 +71,7 @@ var routes = function () {
                     res.redirect('/index_after_login');
             }
         })
+    
     });
 
     //user login
@@ -93,6 +84,7 @@ var routes = function () {
     
     });
 
+    //logout
     router.get('/logout', function(req, res)
     {
         req.logOut();

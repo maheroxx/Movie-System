@@ -5,12 +5,35 @@
 
     <body>
         <h1>EigaMovie</h1>
-        <h3>Welcome</h3>
+        <h3>Welcome, <% customerModel.username%></h3>
         <section class="movies">
 
         </section>
         <script src="../js/jquery-3.5.0.min.js"></script>
 
+        <script>
+            const getBtn = document.getElementById('get_btn');
+            const getData = () => {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET','https://api.themoviedb.org/3/movie');
+
+                xhr.onload = () =>{
+                    const data = JSON.parse(xhr,response);
+                    console.log(data);
+                };
+
+                xhr.send();
+            };
+
+            const sendData = () => {};
+
+            getBtn.addEventListener('click', getData);
+
+        </script>
+        <form action="/search" method="GET">
+            <input type="text" name="keyword" id="keyword">
+            <input type="submit" id="get_btn" value="Search">
+        </form>
         <form action="/profile" method="get">
             <input type="submit" value="View Profile">
         </form>

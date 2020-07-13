@@ -7,7 +7,7 @@
         <h1>Registration Page</h1>
 
         <section class="register">
-            <form action="/register" method="POST" onsubmit="Validate()">
+            <form action="/register" method="POST">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required><br>
                 <label for="email">Email:</label>
@@ -26,18 +26,6 @@
         </section>
 
         <script src="../views/js/jquery-3.5.0.min.js"></script> 
-        <script>
-            function Validate()
-        {
-            var password = document.getElementById("password").value;
-            var confirmPassword = document.getElementById("confirmpassword").value;
-            if (password != confirmPassword) {
-            alert("Passwords do not match.");
-            return false;
-        }
-          return true;
-        
-        }
-        </script>
+      
     </body>
 </html>
