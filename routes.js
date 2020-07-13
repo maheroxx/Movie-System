@@ -103,6 +103,7 @@ var routes = function () {
     });
 
     //view profile
+    //http://localhost:3000/profile/5xxxxcxxxx
     router.get('/profile/:id', function(req, res)
     {
         var id = req.params.id;
