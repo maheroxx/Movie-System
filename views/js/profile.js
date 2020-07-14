@@ -1,10 +1,10 @@
-//var customerId = 0;
+var customerId = 0;
 $(document).ready(function() {
-   // var urlParams = new URLSearchParams(window.location.search);
-   // customerId = urlParams.get('id');
+    var urlParams = new URLSearchParams(window.location.search);
+    customerId = urlParams.get('id');
 
     $.ajax({
-        url: "/profile",
+        url: "/profile/" + customerId,
         method: "get"
     }).done(
         function (data) {
@@ -17,7 +17,33 @@ $(document).ready(function() {
         function (err) {
             console.log(err.responseText);
         }
-);
+    );
+});
 
+
+function editProfile() {
+    var customer = {
+        id: customerId,
+        username: $("#username").val(),
+        email: $("#email").val(),
+        mobilenumber: $("#mobilenumber").val(),
+        creditcard: $("#creditcard").val()
+    };
+    $.ajax(
+        {
+            url: '/profile',
+            method: 'put',
+            data: customer
+        }
+    ).done(
+        function (data) {
+            alert("Profile updated!");
+        }
+    ).fail(
+        function (err) {
+           console.log(err.responseText);
+        }
+    );
     return false;
-})
+}
+
