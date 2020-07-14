@@ -58,10 +58,10 @@ var database = {
         customerModel.findOne({username: u,password: p},callback);
     },
 
-    /*getCustomerInfo : function(callback)
+    getCustomerInfo : function(callback)
     {
         customerModel.find({}, callback);
-    },*/
+    },
 
     getCustomerById: function(id,callback){
         customerModel.findById(id,callback);

@@ -8,10 +8,10 @@ $(document).ready(function() {
         method: "get"
     }).done(
         function (data) {
-            $('#username').val(data.username);
-            $('#email').val(data.email);
-            $('#mobilenumber').val(data.mobilenumber);
-            $('#creditcard').val(data.creditcard);
+            $('#username').append(data.username);
+            $('#email').append(data.email);
+            $('#mobilenumber').append(data.mobilenumber);
+            $('#creditcard').append(data.creditcard);
         }
     ).fail(
         function (err) {

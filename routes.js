@@ -105,7 +105,13 @@ var routes = function () {
         
     });
 
- 
+    router.get('/customer',function(req, res)
+    {
+        db.getCustomerInfo(function(err,customer)
+        {
+            res.send(customer);
+        })
+    });
     //view profile
     //http://localhost:3000/profile/5xxxxcxxxx
     router.get('/profile/:id', function(req, res)
