@@ -81,7 +81,11 @@ var database = {
     
     getMovies: function(callback){
         movieModel.find({}, callback);
-    }
+    },
+    
+    searchMovies: function(t,callback) {
+        movieModel.find({type: new RegExp(t,'i')},callback);
+    },
 
    
 };
