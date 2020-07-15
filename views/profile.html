@@ -17,9 +17,24 @@
                <br><br>
         </section>
 
-        <!-- <form action="/profile" method="put">
-            <input type="submit" value="Update Profile">
-        </form> -->
+        <section>
+            <button class="editProfile1">Edit Profile</button>
+        </section>
+        <br>
+        <section class="editNewProfile">
+            <form onsubmit="return editProfile();">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username"><br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email"><br>
+                <label for="mobilenumber">Mobile Number:</label>
+                <input type="number" id="mobilenumber" name="mobilenumber"><br>
+                <label for="creditcard">Credit Card Number:</label>
+                <input type="text" id="creditcard" name="creditcard"><br>
+                <button type="submit">Update</button>
+            </form>
+        </section>
+        
         <script src='../js/jquery-3.5.0.min.js'></script>
         <script src="js/profile.js"></script>
     </body>

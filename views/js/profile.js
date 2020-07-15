@@ -20,6 +20,10 @@ $(document).ready(function() {
     );
 });
 
+$(".editProfile1").click(function () {
+    $(".editNewProfile").show();
+})
+
 
 function editProfile() {
     var customer = {
@@ -31,9 +35,9 @@ function editProfile() {
     };
     $.ajax(
         {
-            url: '/profile',
+            url: "/profile/" + customerId,
             method: 'put',
-            data: customer
+            data: customers
         }
     ).done(
         function (data) {
