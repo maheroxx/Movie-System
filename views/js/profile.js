@@ -4,7 +4,7 @@ $(document).ready(function() {
     customerId = urlParams.get('id');
 
     $.ajax({
-        url: "/profile/" + customerId,
+        url: "/profilepage/" + customerId,
         method: "get"
     }).done(
         function (data) {
@@ -12,30 +12,37 @@ $(document).ready(function() {
             $('#email').append(data.email);
             $('#mobilenumber').append(data.mobilenumber);
             $('#creditcard').append(data.creditcard);
+
+            $('#editusername').val(data.username);
+            $('#editemail').val(data.email);
+            $('#editmobilenumber').val(data.mobilenumber);
+            $('#editcreditcard').val(data.creditcard);
+            $('#editpassword').val(data.password);
+
         }
     ).fail(
         function (err) {
             console.log(err.responseText);
         }
-    );
+    )
+
+    $(".editBtn").click(function () {
+        $(".editNewProfile").show();
+    })
 });
 
-$(".editProfile1").click(function () {
-    $(".editNewProfile").show();
-})
-
-
 function editProfile() {
-    var customer = {
+    var customers = {
         id: customerId,
-        username: $("#username").val(),
-        email: $("#email").val(),
-        mobilenumber: $("#mobilenumber").val(),
-        creditcard: $("#creditcard").val()
+        username: $("$editusername").val(),
+        email: $("#editemail").val(),
+        mobilenumber: $("#editmobilenumber").val(),
+        creditcard: $("#editcreditcard").val(),
+        password: $("#editpassword").val()
     };
     $.ajax(
         {
-            url: "/profile/" + customerId,
+            url: "/profile",
             method: 'put',
             data: customers
         }

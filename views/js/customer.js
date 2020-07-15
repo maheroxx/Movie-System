@@ -1,6 +1,6 @@
 $(document).ready(function(){
     $.ajax({
-        url: "/customer",
+        url: "/profile",
         method: "get"
     })
     .done(
@@ -9,7 +9,7 @@ $(document).ready(function(){
             data.forEach(function(customer)
             {
                 $('#uname').append( customer.username);
-                $('.profile').append("<a href ='profile?id="+ customer._id +"'>View Profile </a>")
+                $('.profile').append("<a href ='profilepage?id="+ customer._id +"'>View Profile </a>")
             })
         }
     )

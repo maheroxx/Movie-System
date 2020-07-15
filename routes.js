@@ -46,7 +46,7 @@ var routes = function () {
     });
 
     //view profile
-    router.get('/profile', function(req, res) {
+    router.get('/profilepage', function(req, res) {
         res.sendFile(__dirname+"/views/profile.html");
     });
 
@@ -105,7 +105,7 @@ var routes = function () {
         
     });
 
-    router.get('/customer',function(req, res)
+    router.get('/profile',function(req, res)
     {
         db.getCustomerInfo(function(err,customer)
         {
@@ -114,7 +114,7 @@ var routes = function () {
     });
     //view profile
     //http://localhost:3000/profile/5xxxxcxxxx
-    router.get('/profile/:id', function(req, res)
+    router.get('/profilepage/:id', function(req, res)
     {
         var id = req.params.id;
         db.getCustomerById(id, function (err, customer) {
@@ -128,16 +128,8 @@ var routes = function () {
 
     router.put('/profile', function (req, res) {
         var data = req.body;
-        db.updateCustomer(data.username, data.email, data.mobilenumber, data.creditcard, data.password, function (err, customer) {
-            if (err) {
-                res.status(500).send("Unable to update the profile");
-            } else {
-                if (customer == null || customer.n == 0) {
-                    res.status(200).send("Nothing updated");
-                } else {
-                    res.status(200).send("Profile successfully updated");
-                }
-            }
+        db.updateCustomer(data.id, data.username, data.email, data.mobilenumber, data.creditcard, data.password, function (err, customer) {
+            res.end();
         })
 
     });
