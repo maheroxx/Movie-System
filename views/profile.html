@@ -18,11 +18,11 @@
         </section>
 
         <section>
-            <button class="editBtn">Edit Profile</button>
+            <button id="editBtn">Edit Profile</button>
         </section>
         <br>
-        <section class="editNewProfile">
-            <form onsubmit=" return editProfile();">
+        <section id="editNewProfile">
+            <form onsubmit=" return editProfile()">
                 <label for="username">Username:</label>
                 <input type="text" id="editusername" name="username"><br>
                 <label for="email">Email:</label>
@@ -39,5 +39,10 @@
         
         <script src='../js/jquery-3.5.0.min.js'></script>
         <script src="js/profile.js"></script>
+        <script>
+            $("#editBtn").click(function () {
+             $("#editNewProfile").show();
+             });
+        </script>
     </body>
 </html>

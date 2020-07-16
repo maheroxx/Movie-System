@@ -4,7 +4,7 @@ $(document).ready(function() {
     customerId = urlParams.get('id');
 
     $.ajax({
-        url: "/profilepage/" + customerId,
+        url: "/profile/" + customerId,
         method: "get"
     }).done(
         function (data) {
@@ -24,11 +24,8 @@ $(document).ready(function() {
         function (err) {
             console.log(err.responseText);
         }
-    )
+    );
 
-    $(".editBtn").click(function () {
-        $(".editNewProfile").show();
-    })
 });
 
 function editProfile() {
@@ -42,7 +39,7 @@ function editProfile() {
     };
     $.ajax(
         {
-            url: "/profile",
+            url: '/profile',
             method: 'put',
             data: customers
         }

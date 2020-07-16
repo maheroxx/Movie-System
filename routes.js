@@ -114,7 +114,7 @@ var routes = function () {
     });
     //view profile
     //http://localhost:3000/profile/5xxxxcxxxx
-    router.get('/profilepage/:id', function(req, res)
+    router.get('/profile/:id', function(req, res)
     {
         var id = req.params.id;
         db.getCustomerById(id, function (err, customer) {
@@ -128,9 +128,10 @@ var routes = function () {
 
     router.put('/profile', function (req, res) {
         var data = req.body;
-        db.updateCustomer(data.id, data.username, data.email, data.mobilenumber, data.creditcard, data.password, function (err, customer) {
+        db.updateCustomer(data.id, data.username, data.email, data.mobilenumber, data.creditcard, data.password,
+             function (err, customer) {
             res.end();
-        })
+        });
 
     });
 
