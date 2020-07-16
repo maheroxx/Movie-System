@@ -53,11 +53,11 @@ var routes = function () {
     //search movies
     router.get('/search', function(req, res) {
         var title = req.body.title;
-        db.searchMovies(title,function(err,movies){
+        db.searchMovies(title,function(err,movie){
             if (err){
                 res.status(500).send("unable to get");
             } else {
-                res.status(200).send(movies);
+                res.status(200).send(movie);
             }
         })
         res.sendFile(__dirname+"/views/search.html");
