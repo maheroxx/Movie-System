@@ -52,6 +52,17 @@ var routes = function () {
 
     //search movies
     router.get('/search', function(req, res) {
+<<<<<<< HEAD
+=======
+        var title = req.body.title;
+        db.searchMovies(title,function(err,movie){
+            if (err){
+                res.status(500).send("unable to get");
+            } else {
+                res.status(200).send(movie);
+            }
+        })
+>>>>>>> 21a00685ec8f6801b34e204bd47cdf77fbeacaa6
         res.sendFile(__dirname+"/views/search.html");
     });
 

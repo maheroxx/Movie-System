@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 var schema = mongoose.Schema;
 var customerSchema = {};
-var customerModel;
+movieSchema = {};
+var customerModel, movieModel;
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
@@ -83,7 +84,11 @@ var database = {
         movieModel.find({}, callback);
     },
     
+<<<<<<< HEAD
     searchMovie: function(t,callback) {
+=======
+    searchMovies: function(t,callback) {
+>>>>>>> 21a00685ec8f6801b34e204bd47cdf77fbeacaa6
         movieModel.find({title: new RegExp(t,'i')},callback);
     },
 
