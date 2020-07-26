@@ -31,7 +31,7 @@ $(document).ready(function() {
 function editProfile() {
     var customers = {
         id: customerId,
-        username: $("$editusername").val(),
+        username: $("#editusername").val(),
         email: $("#editemail").val(),
         mobilenumber: $("#editmobilenumber").val(),
         creditcard: $("#editcreditcard").val(),

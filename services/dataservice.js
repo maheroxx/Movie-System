@@ -83,8 +83,8 @@ var database = {
         movieModel.find({}, callback);
     },
     
-    searchMovies: function(t,callback) {
-        movieModel.find({type: new RegExp(t,'i')},callback);
+    searchMovie: function(t,callback) {
+        movieModel.find({title: new RegExp(t,'i')},callback);
     },
 
    

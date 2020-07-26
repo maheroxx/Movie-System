@@ -52,18 +52,16 @@ var routes = function () {
 
     //search movies
     router.get('/search', function(req, res) {
-        var title = req.body.title;
-        db.searchMovies(title,function(err,movies){
-            if (err){
-                res.status(500).send("unable to get");
-            } else {
-                res.status(200).send(movies);
-            }
-        })
         res.sendFile(__dirname+"/views/search.html");
     });
 
-   
+    router.post('/search', function(req,res)
+    {   var title = req.body.title;
+        db.searchMovie(title,function(err,movies)
+        {
+            res.send(movies);
+        })
+    })
 
     // add customer to the database
     router.post('/register', function(req, res){
