@@ -52,6 +52,14 @@ var routes = function () {
 
     //search movies
     router.get('/search', function(req, res) {
+        var title = req.body.title;
+        db.searchMovies(title,function(err,movie){
+            if (err){
+                res.status(500).send("unable to get");
+            } else {
+                res.status(200).send(movie);
+            }
+        })
         res.sendFile(__dirname+"/views/search.html");
     });
 
@@ -142,8 +150,20 @@ var routes = function () {
 
     });
 
+    router.post('/favourites', function(req, res){
+        var title = req.body.title;
+        var genre = req.body.genre;
 
-
+        db.addFavourite(title, genre, function(err,favourite)
+            {
+                if (err) {
+                    res.status(500).send("Unable to add");
+                } else {
+                    res.redirect('/favourite');
+            }
+        })
+         
+    });
     return router;
 };
 module.exports = routes();

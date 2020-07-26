@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 var schema = mongoose.Schema;
 var customerSchema = {};
-var customerModel;
+movieSchema = {};
+var customerModel, movieModel;
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
@@ -32,9 +33,15 @@ var database = {
                     password: String,
                 });
 
+                favouriteSchema = schema({
+                    title: String,
+                    genre: String
+                });
+
                 var connection = mongoose.connection;
                 customerModel = connection.model("customer", customerSchema)
                 movieModel = connection.model("movies", movieSchema);
+                favouriteModel = connection.model("favourite", favouriteSchema);
             } else {
                 console.log("Error connecting to Mongo DB");
             }
@@ -83,10 +90,17 @@ var database = {
         movieModel.find({}, callback);
     },
     
-    searchMovie: function(t,callback) {
+    searchMovies: function(t,callback) {
         movieModel.find({title: new RegExp(t,'i')},callback);
     },
 
+    addFavourite: function(t, g, callback){
+        var newFavourite = new favouriteModel({
+            title: t,
+            genre: g
+        });
+        newFavourite.save(callback);
+    }
    
 };
 
