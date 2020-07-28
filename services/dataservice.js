@@ -34,9 +34,15 @@ var database = {
                     token: String
                 });
 
+                favouriteSchema = schema({
+                    title: String,
+                    genre: String
+                });
+
                 var connection = mongoose.connection;
                 customerModel = connection.model("customer", customerSchema)
                 movieModel = connection.model("movies", movieSchema);
+                favouriteModel = connection.model("favourite", favouriteSchema);
             } else {
                 console.log("Error connecting to Mongo DB");
             }
@@ -92,10 +98,21 @@ var database = {
         movieModel.find({}, callback);
     },
     
+<<<<<<< HEAD
     searchMovie: function(t,callback) {
+=======
+    searchMovies: function(t,callback) {
+>>>>>>> 453a1c85deda41dc1cf76ace9121effc725dceca
         movieModel.find({title: new RegExp(t,'i')},callback);
     },
 
+    addFavourite: function(t, g, callback){
+        var newFavourite = new favouriteModel({
+            title: t,
+            genre: g
+        });
+        newFavourite.save(callback);
+    }
    
 };
 
