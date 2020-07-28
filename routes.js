@@ -11,6 +11,30 @@ var routes = function () {
         extended: true
     }));
 
+    router.use(function(req,res,next){
+        //only check for token if it is PUT, DELETE methods or it is POSTING to events
+        if(req.method=="PUT" || req.method=="DELETE"
+            || (req.method=="POST" && req.url.includes("/events"))) {
+            var token = req.query.token;
+            if (token == undefined) {
+                res.status(401).send("No tokens are provided. You are not allowed to perform this action.");
+            } else {
+                db.checkToken(token, function (err, customer) {
+                    if (err || customer == null) {
+                        res.status(401).send("[Invalid token] You are not allowed to perform this action.");
+                    } else {
+                        //means proceed on with the request.
+                        res.locals.customer = customer;
+                        next();
+                    }
+                });
+            }
+        } else {    //all other routes will pass
+            next();
+        }
+    });
+
+
    
     router.get('/css/*', function(req, res)  {
         res.sendFile(__dirname+"/views/"+req.originalUrl);
@@ -45,6 +69,11 @@ var routes = function () {
     router.get('/profilepage', function(req, res) {
         res.sendFile(__dirname+"/views/profile.html");
     });
+
+    router.get('/moviepage', function(req,res)
+    {
+        res.sendFile(__dirname+"/views/movie.html");
+    })
 
     //search movies
     router.get('/search', function(req, res) {
@@ -141,7 +170,16 @@ var routes = function () {
         })
         
     });
-
+    router.get('/movie/:id',function(req,res){
+        var id = req.params.id;
+        db.getMovieById(id, function(err, movie){
+            if (err) {
+                res.status(500).send("Unable to find a customer with this id");
+            } else {
+            res.send(movie);
+            }
+    })
+    });
     router.get('/profile',function(req, res)
     {
         db.getCustomerInfo(function(err,customer)
@@ -186,6 +224,19 @@ var routes = function () {
         })
          
     });
+
+    router.post('/history', function(res,req)
+    {
+        var data = req.body;
+        var customerId = res.locals.customer._id;
+        db.addHistory(data.title, customerId,function(err, history){
+            if (err) {
+                res.status(500).send("Unable to add a new event");
+            } else {
+                res.status(200).send("Event has been successfully added!");
+            }
+        })
+    })
     return router;
 };
 module.exports = routes();

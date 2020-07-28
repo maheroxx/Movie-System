@@ -1,8 +1,10 @@
 var mongoose = require('mongoose');
 var schema = mongoose.Schema;
 var customerSchema = {};
-movieSchema = {};
-var customerModel, movieModel;
+var movieSchema = {};
+var favouriteSchema ={};
+var historySchema = {};
+var customerModel, movieModel, favouriteModel, historyModel;
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
@@ -39,10 +41,18 @@ var database = {
                     genre: String
                 });
 
+                historySchema = schema({
+                    title : String,
+                    customer: {
+                        type: schema.Types.ObjectId,
+                        ref: 'customer'
+                    }
+                })
                 var connection = mongoose.connection;
                 customerModel = connection.model("customer", customerSchema)
                 movieModel = connection.model("movies", movieSchema);
                 favouriteModel = connection.model("favourite", favouriteSchema);
+                historySchema = connection.model("history", historySchema);
             } else {
                 console.log("Error connecting to Mongo DB");
             }
@@ -97,12 +107,10 @@ var database = {
     getMovies: function(callback){
         movieModel.find({}, callback);
     },
-    
-<<<<<<< HEAD
+    getMovieById : function(id, callback){
+        movieModel.findById(id,callback);
+    },
     searchMovie: function(t,callback) {
-=======
-    searchMovies: function(t,callback) {
->>>>>>> 453a1c85deda41dc1cf76ace9121effc725dceca
         movieModel.find({title: new RegExp(t,'i')},callback);
     },
 
@@ -112,6 +120,15 @@ var database = {
             genre: g
         });
         newFavourite.save(callback);
+    },
+
+    addHistory: function(t,cid,callback)
+    {
+        var newHistory = new historyModel({
+            title: t,
+            customer: cid
+        });
+        newHistory.save(callback);
     }
    
 };

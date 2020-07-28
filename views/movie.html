@@ -1,0 +1,40 @@
+<html>
+    <head>
+
+    </head>
+
+    <body>
+        <h1>EigaMovie</h1>
+
+        
+
+        <script>
+            var movieId = 0;
+$(document).ready(function() {
+    var urlParams = new URLSearchParams(window.location.search);
+    movieId = urlParams.get('id');
+
+    $.ajax({
+        url: "/movie/" + movieId,
+        method: "get"
+    }).done(
+        function (data) {
+           var h3 = $("<h3>");
+            h3.append(data.title);
+          
+
+        }
+    ).fail(
+        function (err) {
+            console.log(err.responseText);
+        }
+    );
+
+});
+
+
+
+        </script>
+        </body>
+        
+        </html>

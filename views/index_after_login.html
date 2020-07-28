@@ -51,12 +51,35 @@
                     
                         data.forEach(function(movie)
                         {
-                            $('.movielist').append("<tr> <td>"+ movie.title + "</td> <td>"+ movie.description + "</td> <td>"+ movie.genre+ "</td> <td>"+ movie.language + "</td> <td>" + movie.ranking+ "</td> <td>" + movie.runningtime + "</td> <tr>");
-                           
-                        })
+                            $('.movielist').append("<tr> <td>  <a href='/moviepage?id="+movie._id+"'>"+ movie.title + "</a> </td> <td>"+ movie.description + "</td> <td>"+ movie.genre+ "</td> <td>"+ movie.language + "</td> <td>" + movie.ranking+ "</td> <td>" + movie.runningtime + "</td><td> <form onsubmit='history();'> <button type='submit'>Add to history </form> </td> <tr>");
+                         
+                                function history(){
+                                    var historylist = {
+                                        title: movie.title
+                                    }
+                                
+                                $.ajax({
+                                    url: '/history',
+                                    method: 'post',
+                                    data: historylist
+                                }
+                                ).done(
+                                function (n) {
+                                    alert("Profile updated!");
+                                }
+                            ).fail(
+                                function (err) {
+                                console.log(err.responseText);
+                                }
+                            );
+                            return false;
+                        }
+                    
                     }
-                )
-            })
+                )}
+                )}
+            )
+                
             $(document).ready(function(){
                 $(".logoutlink").click(function(e){
                     e.preventDefault();
