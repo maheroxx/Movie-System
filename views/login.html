@@ -7,7 +7,7 @@
         <h1>Login Page</h1>
 
         <section class="loginform">
-            <form action="/loginform" method="POST">
+            <form onsubmit="return login();">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username"><br>
                 <label for="password">Password:</label>
@@ -15,5 +15,28 @@
                 <input type="submit" value="Login">
             </form>
         </section>
+        <div class="statusmessage"></div>
+        <script src='./js/jquery-3.5.0.min.js'></script>
+        <script>
+            function login(){
+                var credentials = {
+                    username: $("#username").val(),
+                    password : $("#password").val()
+                }
+                $.ajax({
+                    url:"/loginform",
+                    method: "post",
+                    data: credentials
+                })
+                .done(function(data){
+                    sessionStorage.authToken = data.token;
+                    location.replace("index_after_login");
+                })
+                .fail(function(err){
+                    $(".statusmessage").text(err.responseText);
+                })
+                return false;
+            }
+        </script>
     </body>
 </html>

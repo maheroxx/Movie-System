@@ -1,12 +1,7 @@
 var bodyParser = require('body-parser');
 var db = require('./services/dataservice.js');
+var crypto = require('crypto');
 
-var passport		= 	require('passport');
-var localStrategy	=	require('passport-local').Strategy;
-//const customersController = require('./controllers/customerController.js');
-
-//router.use(passport.initialize());
-//router.use(passport.session());
 db.connect();
 
 var routes = function () {
@@ -16,6 +11,7 @@ var routes = function () {
         extended: true
     }));
 
+   
     router.get('/css/*', function(req, res)  {
         res.sendFile(__dirname+"/views/"+req.originalUrl);
     });
@@ -52,17 +48,6 @@ var routes = function () {
 
     //search movies
     router.get('/search', function(req, res) {
-<<<<<<< HEAD
-=======
-        var title = req.body.title;
-        db.searchMovies(title,function(err,movie){
-            if (err){
-                res.status(500).send("unable to get");
-            } else {
-                res.status(200).send(movie);
-            }
-        })
->>>>>>> 21a00685ec8f6801b34e204bd47cdf77fbeacaa6
         res.sendFile(__dirname+"/views/search.html");
     });
 
@@ -71,6 +56,7 @@ var routes = function () {
         db.searchMovie(title,function(err,movies)
         {
             res.send(movies);
+            
         })
     })
 
@@ -97,20 +83,53 @@ var routes = function () {
     });
 
     //user login
-    router.post('/loginform', passport.authenticate('local',{failureRedirect:'/login',failureFlash:'Invalid Username or Password'}), function(req,res) {
+    router.post('/loginform', function(req,res) {
+        var data = req.body;
+        db.login(data.username, data.password,function(err, customer){
+            if(err){
+                res.status(401).send("Login unsuccessful. Please try again");
+                res.redirect('/login');
+            }
+            else{
+                if(customer == null){
+                    res.status(401).send("Login unsuccessful. Please try again");
+                    //res.status(401).json({'message':'login unsuccessful. Please check username or password'});
+                   
+                }
+                else{
+                    var strToHash = customer.username + Date.now();
+                    var token = crypto.createHash('md5').update(strToHash).digest('hex');
+                    db.updateToken(customer._id,token,function(err, customer)
+                    {
+                        //res.status(200).json({'token':token});
+                        res.redirect('index_after_login');
+                    })
+                }
+            }
+        })
 
-        //If Local Strategy Comes True
-        console.log('Authentication Successful');
-        req.flash('success','You are Logged In');
-        res.redirect('/index_after_login');
-    
+       
     });
 
     //logout
     router.get('/logout', function(req, res)
     {
-        req.logOut();
-        res.redirect('/');
+       var token = req.query.token;
+       if(token == undefined){
+           res.status(401).send("No tokens are provided");
+       }
+       else{
+           db.checkToken(token, function(err,customer){
+               if(err || customer == null){
+                   res.status(401).send("Invalid token");
+               }
+               else{
+                   db.checkToken(customer._id, "",function(err, customer){
+                    res.status(200).send("Logout successfully");
+                   });
+               }
+           })
+       }
     });
 
     // display all the movies

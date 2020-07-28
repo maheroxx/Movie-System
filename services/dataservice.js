@@ -31,6 +31,7 @@ var database = {
                     mobilenumber: String,
                     creditcard: String,
                     password: String,
+                    token: String
                 });
 
                 var connection = mongoose.connection;
@@ -54,9 +55,16 @@ var database = {
         newCustomer.save(callback);
     },
 
-    getCustomer: function(u,p,callback)
+    login: function(u,p,callback)
     {
         customerModel.findOne({username: u,password: p},callback);
+    },
+    updateToken: function(id, token,callback)
+    {
+        customerModel.findByIdAndUpdate(id,{token: token},callback);
+    },
+    checkToken: function(token,callback){
+        customerModel.findOne({token: token},callback);
     },
 
     getCustomerInfo : function(callback)
@@ -84,11 +92,7 @@ var database = {
         movieModel.find({}, callback);
     },
     
-<<<<<<< HEAD
     searchMovie: function(t,callback) {
-=======
-    searchMovies: function(t,callback) {
->>>>>>> 21a00685ec8f6801b34e204bd47cdf77fbeacaa6
         movieModel.find({title: new RegExp(t,'i')},callback);
     },
 

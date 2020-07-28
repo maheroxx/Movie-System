@@ -14,9 +14,7 @@
 
         </section>
        
-        <form action="/logout" method="get">
-        <input type="submit" value="Logout">
-        </form>
+       <a href="#" class="logoutlink">Logout</a>
 
         <form action="/search" method="GET">
             <input type="text" name="keyword" id="keyword">
@@ -54,6 +52,23 @@
                         })
                     }
                 )
+            })
+            $(document).ready(function(){
+                $(".logoutlink").click(function(e){
+                    e.preventDefault();
+
+                    $.ajax({
+                        url: "/logout?token="+sessionStorage.authToken,
+                        method: "get"
+                    })
+                    .done(function(data){
+                        sessionStorage.removeItem("authToken");
+                        window.location.href="index";
+                    })
+                    .fail(function(err){
+                        console.log(err.responseText);
+                    })
+                })
             })
         </script>
     </body>

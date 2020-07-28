@@ -26,7 +26,26 @@
             </table>
         </section>
         <script src="../js/jquery-3.5.0.min.js"></script>
-        <script src="../js/jquery-3.5.0.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $("#get_btn").click(function(){
+                $.ajax({
+                    url: "/search",
+                    method: "post"
+                })
+                .done(
+                    function(data){
+                       
+                        data.forEach(function(movie)
+                        {
+                            $('.movielist').append("<tr> <td>"+ movie.title + "</td> <td>"+ movie.description + "</td> <td>"+ movie.genre+ "</td> <td>"+ movie.language + "</td> <td>" + movie.ranking+ "</td> <td>" + movie.runningtime + "</td> <tr>");
+                           
+                        })
+                    }
+                )
+            })
+        })
+        </script>
 
     </body>
 </html>
