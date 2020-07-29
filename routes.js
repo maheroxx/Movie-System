@@ -213,8 +213,9 @@ var routes = function () {
     router.post('/favourites', function(req, res){
         var title = req.body.title;
         var genre = req.body.genre;
+        var customerId = res.locals.customer._id;
 
-        db.addFavourite(title, genre, function(err,favourite)
+        db.addFavourite(title, genre, customerId, function(err,favourite)
             {
                 if (err) {
                     res.status(500).send("Unable to add");

@@ -38,7 +38,11 @@ var database = {
 
                 favouriteSchema = schema({
                     title: String,
-                    genre: String
+                    genre: String,
+                    customer: {
+                        type: schema.Types.ObjectId,
+                        ref: 'customer'
+                    }
                 });
 
                 historySchema = schema({
@@ -114,10 +118,11 @@ var database = {
         movieModel.find({title: new RegExp(t,'i')},callback);
     },
 
-    addFavourite: function(t, g, callback){
+    addFavourite: function(t, g, cid, callback){
         var newFavourite = new favouriteModel({
             title: t,
-            genre: g
+            genre: g,
+            customer: cid
         });
         newFavourite.save(callback);
     },
