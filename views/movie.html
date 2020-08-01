@@ -7,10 +7,13 @@
         <h1>EigaMovie</h1>
 
         
-
+        <section class="moviepage"> 
+            <h3 id="title"></h3>
+        </section>
+        <script src='../js/jquery-3.5.0.min.js'></script>
         <script>
             var movieId = 0;
-$(document).ready(function() {
+        $(document).ready(function() {
     var urlParams = new URLSearchParams(window.location.search);
     movieId = urlParams.get('id');
 
@@ -19,9 +22,8 @@ $(document).ready(function() {
         method: "get"
     }).done(
         function (data) {
-           var h3 = $("<h3>");
-            h3.append(data.title);
-          
+         $("#title").append(data.title);
+         $(".moviepage").append(data.description);
 
         }
     ).fail(

@@ -13,8 +13,8 @@ var routes = function () {
 
     router.use(function(req,res,next){
         //only check for token if it is PUT, DELETE methods or it is POSTING to events
-        if(req.method=="PUT" || req.method=="DELETE"
-            || (req.method=="POST" && req.url.includes("/events"))) {
+        if(
+             (req.method=="POST" && req.url.includes("/history"))) {
             var token = req.query.token;
             if (token == undefined) {
                 res.status(401).send("No tokens are provided. You are not allowed to perform this action.");
@@ -68,6 +68,10 @@ var routes = function () {
     //view profile
     router.get('/profilepage', function(req, res) {
         res.sendFile(__dirname+"/views/profile.html");
+    });
+
+    router.get('/history', function(req, res) {
+        res.sendFile(__dirname+"/views/history.html");
     });
 
     router.get('/moviepage', function(req,res)
@@ -130,8 +134,8 @@ var routes = function () {
                     var token = crypto.createHash('md5').update(strToHash).digest('hex');
                     db.updateToken(customer._id,token,function(err, customer)
                     {
-                        //res.status(200).json({'token':token});
-                        res.redirect('index_after_login');
+                      
+                        res.status(200).json({ 'message': 'Login successful.', 'token': token });
                     })
                 }
             }
@@ -153,7 +157,7 @@ var routes = function () {
                    res.status(401).send("Invalid token");
                }
                else{
-                   db.checkToken(customer._id, "",function(err, customer){
+                   db.updateToken(customer._id, "",function(err, customer){
                     res.status(200).send("Logout successfully");
                    });
                }
@@ -227,9 +231,9 @@ var routes = function () {
     });
 
     router.post('/history', function(res,req)
-    {
-        var data = req.body;
+    { 
         var customerId = res.locals.customer._id;
+        var data = req.body;
         db.addHistory(data.title, customerId,function(err, history){
             if (err) {
                 res.status(500).send("Unable to add a new event");

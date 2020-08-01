@@ -46,7 +46,7 @@ var database = {
                 });
 
                 historySchema = schema({
-                    title : String,
+                   title: String,
                     customer: {
                         type: schema.Types.ObjectId,
                         ref: 'customer'
@@ -56,7 +56,7 @@ var database = {
                 customerModel = connection.model("customer", customerSchema)
                 movieModel = connection.model("movies", movieSchema);
                 favouriteModel = connection.model("favourite", favouriteSchema);
-                historySchema = connection.model("history", historySchema);
+                historyModel = connection.model("history", historySchema);
             } else {
                 console.log("Error connecting to Mongo DB");
             }
@@ -130,7 +130,7 @@ var database = {
     addHistory: function(t,cid,callback)
     {
         var newHistory = new historyModel({
-            title: t,
+            movie: t,
             customer: cid
         });
         newHistory.save(callback);

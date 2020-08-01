@@ -7,14 +7,16 @@
         <h1>EigaMovie</h1>
         <h3>Welcome <span id="uname"></span></h3>
 
-     
+     <style>
+        
+     </style>
         <script src="../js/jquery-3.5.0.min.js"></script>
         <script src="js/customer.js"></script>
         <section class="profile">
 
         </section>
        
-       <a href="#" class="logoutlink">Logout</a>
+       <a href="/views/index.html" class="logoutlink">Logout</a>
 
         <form action="/favourites" method="get">
             <input type="submit" value="Favourites">
@@ -40,6 +42,8 @@
             </table>
 
         </section>
+
+        <div class="statusMessage"></div>
         <script>
             $(document).ready(function(){
                 $.ajax({
@@ -51,35 +55,41 @@
                     
                         data.forEach(function(movie)
                         {
-                            $('.movielist').append("<tr> <td>  <a href='/moviepage?id="+movie._id+"'>"+ movie.title + "</a> </td> <td>"+ movie.description + "</td> <td>"+ movie.genre+ "</td> <td>"+ movie.language + "</td> <td>" + movie.ranking+ "</td> <td>" + movie.runningtime + "</td><td> <form onsubmit='history();'> <button type='submit'>Add to history </form> </td> <tr>");
-                         
-                                function history(){
-                                    var historylist = {
-                                        title: movie.title
-                                    }
-                                
-                                $.ajax({
-                                    url: '/history',
-                                    method: 'post',
-                                    data: historylist
-                                }
-                                ).done(
-                                function (n) {
-                                    alert("Profile updated!");
-                                }
-                            ).fail(
-                                function (err) {
-                                console.log(err.responseText);
-                                }
-                            );
-                            return false;
-                        }
-                    
+                            $('.movielist').append("<tr> <td>  <a href='/moviepage?id="+movie._id+"'>"+ movie.title + "</a> </td> <td>"+ movie.description + "</td> <td>"+ movie.genre+ "</td> <td>"+ movie.language + "</td> <td>" + movie.ranking+ "</td> <td>" + movie.runningtime +
+                                "</td><td> <form onsubmit='return history();'> <input type='text' id='title' value='"+movie.title+"'> <button type='submit'>Add to history </form> </td> <tr>");
+                           // $("#title").val(movie.title);
+
+            
                     }
                 )}
                 )}
-            )
-                
+            );
+
+            function history(){
+               var moviename = $("#title").val();
+              
+            $.ajax({
+                url: "/history?token="+ sessionStorage.authToken,
+                method: "post",
+                data: {title: moviename
+                        }
+            }
+            ).done(
+            function (data) {
+                $(".statusMessage").text(data);
+                setTimeout(function(){
+                    location.reload();
+                },3000);
+            }
+        ).fail(
+            function (err) {
+                $(".statusMessage").text("Unable to add new event");
+                console.log(err);
+            }
+        );
+        return false;
+    }
+          
             $(document).ready(function(){
                 $(".logoutlink").click(function(e){
                     e.preventDefault();
@@ -90,7 +100,7 @@
                     })
                     .done(function(data){
                         sessionStorage.removeItem("authToken");
-                        window.location.href="index";
+                        window.location.href="/";
                     })
                     .fail(function(err){
                         console.log(err.responseText);
