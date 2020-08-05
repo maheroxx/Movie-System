@@ -8,7 +8,9 @@
         <h3>Welcome <span id="uname"></span></h3>
 
      <style>
-        
+        #title{
+            display: none;
+        }
      </style>
         <script src="../js/jquery-3.5.0.min.js"></script>
         <script src="js/customer.js"></script>
@@ -22,11 +24,14 @@
             <input type="submit" value="Favourites">
             </form>
 
+         <a href="/history">View History List</a>
+
         <form action="/search" method="GET">
             <input type="text" name="keyword" id="keyword">
             <input type="submit" id="get_btn" value="Search">
         </form>
 
+       
         <section class="movies">
             <h2>Movie List</h2>
             <table border="1px black"  class="movielist">
@@ -57,9 +62,7 @@
                         {
                             $('.movielist').append("<tr> <td>  <a href='/moviepage?id="+movie._id+"'>"+ movie.title + "</a> </td> <td>"+ movie.description + "</td> <td>"+ movie.genre+ "</td> <td>"+ movie.language + "</td> <td>" + movie.ranking+ "</td> <td>" + movie.runningtime +
                                 "</td><td> <form onsubmit='return history();'> <input type='text' id='title' value='"+movie.title+"'> <button type='submit'>Add to history </form> </td> <tr>");
-                           // $("#title").val(movie.title);
-
-            
+                          
                     }
                 )}
                 )}
@@ -71,19 +74,17 @@
             $.ajax({
                 url: "/history?token="+ sessionStorage.authToken,
                 method: "post",
-                data: {title: moviename
+                data: {movie: moviename
                         }
             }
             ).done(
             function (data) {
-                $(".statusMessage").text(data);
-                setTimeout(function(){
-                    location.reload();
-                },3000);
+               alert("Movie successfully added to the history list!");
+               console.log(data);
             }
         ).fail(
             function (err) {
-                $(".statusMessage").text("Unable to add new event");
+                alert("Unable to add new movie to the history list")
                 console.log(err);
             }
         );

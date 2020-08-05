@@ -41,19 +41,19 @@ var database = {
                     genre: String,
                     customer: {
                         type: schema.Types.ObjectId,
-                        ref: 'customer'
+                        ref: 'customers'
                     }
                 });
 
                 historySchema = schema({
-                   title: String,
+                   movie: String,
                     customer: {
                         type: schema.Types.ObjectId,
-                        ref: 'customer'
+                        ref: 'customers'
                     }
                 })
                 var connection = mongoose.connection;
-                customerModel = connection.model("customer", customerSchema)
+                customerModel = connection.model("customers", customerSchema)
                 movieModel = connection.model("movies", movieSchema);
                 favouriteModel = connection.model("favourite", favouriteSchema);
                 historyModel = connection.model("history", historySchema);
@@ -134,8 +134,12 @@ var database = {
             customer: cid
         });
         newHistory.save(callback);
-    }
+    },
    
+    getHistorybyId: function(id, callback)
+    {
+        historyModel.find({customer: id},{_id:0}).populate('customer','_id').exec(callback);
+    }
 };
 
 module.exports = database;

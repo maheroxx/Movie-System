@@ -24,7 +24,7 @@ var routes = function () {
                         res.status(401).send("[Invalid token] You are not allowed to perform this action.");
                     } else {
                         //means proceed on with the request.
-                        res.locals.customer = customer;
+                        res.locals.customer= customer;
                         next();
                     }
                 });
@@ -70,6 +70,7 @@ var routes = function () {
         res.sendFile(__dirname+"/views/profile.html");
     });
 
+    //view history
     router.get('/history', function(req, res) {
         res.sendFile(__dirname+"/views/history.html");
     });
@@ -121,7 +122,6 @@ var routes = function () {
         db.login(data.username, data.password,function(err, customer){
             if(err){
                 res.status(401).send("Login unsuccessful. Please try again");
-                res.redirect('/login');
             }
             else{
                 if(customer == null){
@@ -174,16 +174,18 @@ var routes = function () {
         })
         
     });
+    //display each movie by ID 
     router.get('/movie/:id',function(req,res){
         var id = req.params.id;
         db.getMovieById(id, function(err, movie){
             if (err) {
-                res.status(500).send("Unable to find a customer with this id");
+                res.status(500).send("Unable to find a movie with this id");
             } else {
             res.send(movie);
             }
     })
     });
+    //display customer's information 
     router.get('/profile',function(req, res)
     {
         db.getCustomerInfo(function(err,customer)
@@ -205,6 +207,7 @@ var routes = function () {
         });
     });
 
+    //update customer's information
     router.put('/profile', function (req, res) {
         var data = req.body;
         db.updateCustomer(data.id, data.username, data.email, data.mobilenumber, data.creditcard, data.password,
@@ -217,7 +220,7 @@ var routes = function () {
     router.post('/favourites', function(req, res){
         var title = req.body.title;
         var genre = req.body.genre;
-        var customerId = res.locals.customer._id;
+        var customerId =  res.locals.customer._id;
 
         db.addFavourite(title, genre, customerId, function(err,favourite)
             {
@@ -230,16 +233,30 @@ var routes = function () {
          
     });
 
-    router.post('/history', function(res,req)
-    { 
-        var customerId = res.locals.customer._id;
+    // add movie to the history list
+    router.post('/history', function(req,res)
+    {  
         var data = req.body;
-        db.addHistory(data.title, customerId,function(err, history){
+        var customerId = res.locals.customer._id;
+       
+        db.addHistory(data.movie, customerId,function(err, history){
             if (err) {
-                res.status(500).send("Unable to add a new event");
+                res.status(500).send("Unable to add a new history");
+                console.log(err);
             } else {
-                res.status(200).send("Event has been successfully added!");
+                res.status(200).send("Movie has been successfully added to History List!");
             }
+        })
+    });
+
+    router.get('/history/:customer',function(res,req){
+        var id = req.params.customer;
+        db.getHistorybyId(id, function(err,customer){
+            if (err) {
+                res.status(500).send("Unable to get all the history.");
+            } else {
+                res.status(200).send(customer);
+            } 
         })
     })
     return router;
