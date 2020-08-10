@@ -9,11 +9,9 @@
         <a href="/register">Register Now</a><br>
         <a href="/login">Login</a>
         <br>
-        <form action="/search">
-            <input type="text" name="title" id="title">
-            <input type="submit" id="get_btn" value="Search">
-        </form>
-
+        
+        <a href="/search">Search</a>
+        
         <section class="movies">
             <h2>Movie List</h2>
             <table border="1px black"  class="movielist">
@@ -41,7 +39,7 @@
                        
                         data.forEach(function(movie)
                         {
-                            $('.movielist').append("<tr> <td>"+ movie.title + "</td> <td>"+ movie.description + "</td> <td>"+ movie.genre+ "</td> <td>"+ movie.language + "</td> <td>" + movie.ranking+ "</td> <td>" + movie.runningtime + "</td> <tr>");
+                            $('.movielist').append("<tr> <td><a href='/moviepage?id="+movie._id+"'>"+ movie.title + "</a></td> <td>"+ movie.description + "</td> <td>"+ movie.genre+ "</td> <td>"+ movie.language + "</td> <td>" + movie.ranking+ "</td> <td>" + movie.runningtime + "</td> <tr>");
                            
                         })
                     }

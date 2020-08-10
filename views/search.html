@@ -6,6 +6,10 @@
     <body>
         <h1>EigaMovie</h1>
 
+        <form action="/movie/search" method="POST" >
+            <input type="text" name="title" id="title">
+            <input type="submit" id="get_btn" value="Search">
+        </form>
 
         <section class="movies">
             <h2>Movie List</h2>
@@ -23,25 +27,23 @@
         </section>
         <script src="../js/jquery-3.5.0.min.js"></script>
         <script>
-            $(document).ready(function(){
-                $(".get_btn").click(function(e){
+           $("#get_btn").click(function(){
+               var title = $("#title").val();
                 $.ajax({
-                    url: "/search",
-                    method: "post"
+                    url: "/movie/search",
+                    method: "post",
+                    data: {title : title}
                 })
                 .done(
                     function(data){
                        
-                        data.forEach(function(movie)
-                        {
-                            $('.MovieInfo').append("<tr> <td>"+ movie.title + "</td> <td>"+ movie.description + "</td> <td>"+ movie.genre+ "</td> <td>"+ movie.language + "</td> <td>" + movie.ranking+ "</td> <td>" + movie.runningtime + "</td> <tr>");
+                            $('.MovieInfo').append("<tr> <td>"+ data.title + "</td> <td>"+ data.description + "</td> <td>"+ movie.genre+ "</td> <td>"+ movie.language + "</td> <td>" + movie.ranking+ "</td> <td>" + movie.runningtime + "</td> <tr>");
                            
-                        })
                     }
                 )
-            }
-        )}
-            )
+            })
+        
+            
     
         </script>
 

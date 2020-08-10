@@ -5,8 +5,33 @@
     <body>
         <h1>Favourite List</h1>
 
-        <section class="favouriteList">
-            
+        <section>
+            <table border="1px black" class="favList">
+                <tr>
+                    <th>Title</th>
+                    <th>Added By</th>
+                </tr>
+            </table>
         </section>
+
+        <script src="../js/jquery-3.5.0.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $.ajax({
+                    url: "/favouritelist",
+                    method: "get"
+                })
+                .done(
+                    function(data){
+                    
+                        data.forEach(function(fav)
+                        {
+                            $('.favList').append("<tr> <td>"+ fav.movie+" </td> <td>"+ fav.customer.username+ "</td> <tr>");
+                          
+                    }
+                )}
+                )}
+            );
+        </script>
     </body>
 </html>

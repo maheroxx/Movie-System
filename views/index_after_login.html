@@ -8,7 +8,7 @@
         <h3>Welcome <span id="uname"></span></h3>
 
      <style>
-        #title{
+        #title,#movietitle{
             display: none;
         }
      </style>
@@ -16,20 +16,12 @@
         <script src="js/customer.js"></script>
         <section class="profile">
 
-        </section>
-       
-       <a href="/views/index.html" class="logoutlink">Logout</a>
-
-       <a href="/favourite">View Favourite</a>
-
-        <a href="/history">View History</a>
-
-        <form action="/search" method="GET">
-            <input type="text" name="keyword" id="keyword">
-            <input type="submit" id="get_btn" value="Search">
-        </form>
-
-       
+        </section><br>
+       <a href="/favourite">View Favourite</a><br>
+        <a href="/history">View History</a><br>
+        <a href="/search">Search</a><br>
+        <a href="/views/index.html" class="logoutlink">Logout</a>
+        
         <section class="movies">
             <h2>Movie List</h2>
             <table border="1px black"  class="movielist">
@@ -58,8 +50,8 @@
                         data.forEach(function(movie)
                         {
                             $('.movielist').append("<tr> <td>  <a href='/moviepage?id="+movie._id+"'>"+ movie.title + "</a> </td> <td>"+ movie.description + "</td> <td>"+ movie.genre+ "</td> <td>"+ movie.language + "</td> <td>" + movie.ranking+ "</td> <td>" + movie.runningtime +
-                                "</td><td> <form onsubmit='return history();'> <input type='text' id='title' value='"+movie.title+"'> <button type='submit'>Add to history </form> </td>" + 
-                                "<td> <form onsubmit='return favourite();'> <input type='text' id='title' value='"+movie.title+"'> <button type='submit'>Add to favourite </form> </td>");
+                                "</td><td> <form onsubmit='return history();'> <input type='text' id='movietitle' value='"+movie.title+"'> <button type='submit'>Add to history </form> </td>" + "<td> <form onsubmit='return favourite();'> <input type='text' id='title' value='"+movie.title+"'> <button type='submit'>Add to favourite </form> </td>"
+                                );
                           
                     }
                 )}
@@ -67,7 +59,7 @@
             );
 
             function history(){
-               var moviename = $("#title").val();
+               var moviename = $("#movietitle").val();
               
             $.ajax({
                 url: "/history?token="+ sessionStorage.authToken,
@@ -78,6 +70,7 @@
             ).done(
             function (data) {
                alert("Movie successfully added to the history list!");
+               console.log(data);
               
             }
         ).fail(
@@ -112,13 +105,6 @@
         return false;
     }
           
-            function viewHistory(){
-                var customerID = ("#cusID").val();
-
-                $.ajax({
-                    
-                })
-            }
             $(document).ready(function(){
                 $(".logoutlink").click(function(e){
                     e.preventDefault();

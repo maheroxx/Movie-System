@@ -88,7 +88,7 @@ var routes = function () {
         res.sendFile(__dirname+"/views/search.html");
     });
 
-    router.post('/search', function(req,res)
+    router.post('/movie/search', function(req,res)
     {   var title = req.body.title;
         db.searchMovie(title,function(err,movies)
         {
@@ -120,7 +120,7 @@ var routes = function () {
                 if (err) {
                     res.status(500).send("Unable to register");
                 } else {
-                    res.status(200).send("Register successful!")
+                   // res.status(200).send("Register successful!")
                     res.redirect('/index_after_login');
             }
         })
@@ -237,7 +237,7 @@ var routes = function () {
                  else
                  {
                      res.status(200).send("Update successful")
-                     res.send(customer);
+                    
                  }
             res.end();
         });
@@ -261,13 +261,13 @@ var routes = function () {
         })
     });
 
-    router.get('/favourite/:customer',function(res,req){
-        var id = req.params.customer;
-        db.getFavouritebyId(id, function(err,customer){
+    router.get('/favouritelist',function(req,res){
+        //var id = req.params.customer;
+        db.getFavourite( function(err,fav){
             if (err) {
                 res.status(500).send("Unable to get Favourite.");
             } else {
-                res.status(200).send(customer);
+                res.status(200).send(fav);
             } 
         })
     })
@@ -284,18 +284,19 @@ var routes = function () {
                 console.log(err);
             } else {
                 res.status(200).send("Movie has been successfully added to History List!");
+                console.log(history);
             }
         })
     });
 
     router.get('/historylist',function(req,res){
        // var customerid = req.body.id;
-        db.getHistory( function(err,customer){
+        db.getHistory( function(err,history){
             if (err) {
                 res.status(500).send("Unable to get all the history.");
                 console.log(err)
             } else {
-                res.status(200).send(customer);
+                res.status(200).send(history);
             } 
         })
     })

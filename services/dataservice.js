@@ -125,9 +125,9 @@ var database = {
         newFavourite.save(callback);
     },
 
-    getFavouritebyId: function(id, callback)
+    getFavourite: function( callback)
     {
-        favouriteModel.find({customer: id},{_id:0}).populate('customer','_id').exec(callback);
+        favouriteModel.find({}).populate('customer').exec(callback);
     },
 
     addHistory: function(t,cid,callback)
