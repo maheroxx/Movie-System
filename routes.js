@@ -13,7 +13,7 @@ var routes = function () {
     
     router.use(function(req,res,next){
         //only check for token if it is PUT, DELETE methods or it is POSTING to events
-        if(
+        if((req.method=="POST" && req.url.includes("/favourite"))||
              (req.method=="POST" && req.url.includes("/history"))) {
             var token = req.query.token;
             if (token == undefined) {
@@ -34,30 +34,6 @@ var routes = function () {
         }
     });
     
-    //favourite
-    router.use(function(req,res,next){
-        //only check for token if it is PUT, DELETE methods or it is POSTING to events
-        if(
-             (req.method=="POST" && req.url.includes("/favourite"))) {
-            var token = req.query.token;
-            if (token == undefined) {
-                res.status(401).send("No tokens are provided. You are not allowed to perform this action.");
-            } else {
-                db.checkToken(token, function (err, customer) {
-                    if (err || customer == null) {
-                        res.status(401).send("[Invalid token] You are not allowed to perform this action.");
-                    } else {
-                        //means proceed on with the request.
-                        res.locals.customer= customer;
-                        next();
-                    }
-                });
-            }
-        } else {    //all other routes will pass
-            next();
-        }
-    });
-   
     router.get('/css/*', function(req, res)  {
         res.sendFile(__dirname+"/views/"+req.originalUrl);
     });
