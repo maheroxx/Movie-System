@@ -24,7 +24,7 @@
             <input type="submit" value="Favourites">
             </form>
 
-         <a href="/history">View History List</a>
+        <a href="/history">View History</a>
 
         <form action="/search" method="GET">
             <input type="text" name="keyword" id="keyword">
@@ -48,7 +48,6 @@
 
         </section>
 
-        <div class="statusMessage"></div>
         <script>
             $(document).ready(function(){
                 $.ajax({
@@ -80,7 +79,7 @@
             ).done(
             function (data) {
                alert("Movie successfully added to the history list!");
-               console.log(data);
+              
             }
         ).fail(
             function (err) {
@@ -91,6 +90,13 @@
         return false;
     }
           
+            function viewHistory(){
+                var customerID = ("#cusID").val();
+
+                $.ajax({
+                    
+                })
+            }
             $(document).ready(function(){
                 $(".logoutlink").click(function(e){
                     e.preventDefault();

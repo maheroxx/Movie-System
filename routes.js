@@ -89,7 +89,14 @@ var routes = function () {
     {   var title = req.body.title;
         db.searchMovie(title,function(err,movies)
         {
-            res.send(movies);
+            if(err)
+            {
+                res.status(500).send("Unable to find the movie")
+            }
+            else
+            {
+                res.status(200).send(movies)
+            }
             
         })
     })
@@ -249,11 +256,12 @@ var routes = function () {
         })
     });
 
-    router.get('/history/:customer',function(res,req){
-        var id = req.params.customer;
-        db.getHistorybyId(id, function(err,customer){
+    router.get('/historylist',function(req,res){
+       // var customerid = req.body.id;
+        db.getHistory( function(err,customer){
             if (err) {
                 res.status(500).send("Unable to get all the history.");
+                console.log(err)
             } else {
                 res.status(200).send(customer);
             } 

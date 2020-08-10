@@ -136,9 +136,9 @@ var database = {
         newHistory.save(callback);
     },
    
-    getHistorybyId: function(id, callback)
+    getHistory: function(callback)
     {
-        historyModel.find({customer: id},{_id:0}).populate('customer','_id').exec(callback);
+        historyModel.find({}).populate('customer').exec(callback);
     }
 };
 

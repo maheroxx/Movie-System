@@ -10,6 +10,7 @@ $(document).ready(function(){
             {
                 $('#uname').append( customer.username);
                 $('.profile').append("<a href ='profilepage?id="+ customer._id +"'>View Profile </a>")
+                $('#historyForm').append("<input type='text' id='cusID' value='"+ customer._id + "'>")
             })
         }
     )

@@ -12,6 +12,7 @@ $(document).ready(function() {
             $('#email').append(data.email);
             $('#mobilenumber').append(data.mobilenumber);
             $('#creditcard').append(data.creditcard);
+           
 
             $('#editusername').val(data.username);
             $('#editemail').val(data.email);
