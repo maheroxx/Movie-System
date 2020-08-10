@@ -110,7 +110,7 @@ var routes = function () {
         var email = req.body.email;
         var mobilenumber = req.body.mobilenumber;
         var password =req.body.password;
-        var confirmpass = req.body.confirmpass;
+        //var confirmpass = req.body.confirmpass;
         var creditcard = req.body.creditcard;
 
       
@@ -120,6 +120,7 @@ var routes = function () {
                 if (err) {
                     res.status(500).send("Unable to register");
                 } else {
+                    res.status(200).send("Register successful!")
                     res.redirect('/index_after_login');
             }
         })
@@ -180,7 +181,14 @@ var routes = function () {
     {
         db.getMovies(function(err, movies)
         {
-            res.send(movies);
+            if(err)
+            {
+                res.status(500).send("Unable to get all the movies")
+
+            }
+            else{
+            res.status(200).send(movies);
+            }
         })
         
     });
@@ -222,6 +230,15 @@ var routes = function () {
         var data = req.body;
         db.updateCustomer(data.id, data.username, data.email, data.mobilenumber, data.creditcard, data.password,
              function (err, customer) {
+                 if(err)
+                 {
+                     res.status(500).send("Unable to update the changes")
+                 }
+                 else
+                 {
+                     res.status(200).send("Update successful")
+                     res.send(customer);
+                 }
             res.end();
         });
 
