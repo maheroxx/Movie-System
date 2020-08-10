@@ -10,7 +10,7 @@ var routes = function () {
     router.use(bodyParser.urlencoded({
         extended: true
     }));
-
+    
     router.use(function(req,res,next){
         //only check for token if it is PUT, DELETE methods or it is POSTING to events
         if(
@@ -33,8 +33,30 @@ var routes = function () {
             next();
         }
     });
-
-
+    
+    //favourite
+    router.use(function(req,res,next){
+        //only check for token if it is PUT, DELETE methods or it is POSTING to events
+        if(
+             (req.method=="POST" && req.url.includes("/favourite"))) {
+            var token = req.query.token;
+            if (token == undefined) {
+                res.status(401).send("No tokens are provided. You are not allowed to perform this action.");
+            } else {
+                db.checkToken(token, function (err, customer) {
+                    if (err || customer == null) {
+                        res.status(401).send("[Invalid token] You are not allowed to perform this action.");
+                    } else {
+                        //means proceed on with the request.
+                        res.locals.customer= customer;
+                        next();
+                    }
+                });
+            }
+        } else {    //all other routes will pass
+            next();
+        }
+    });
    
     router.get('/css/*', function(req, res)  {
         res.sendFile(__dirname+"/views/"+req.originalUrl);
@@ -79,6 +101,11 @@ var routes = function () {
     {
         res.sendFile(__dirname+"/views/movie.html");
     })
+
+    //view favourite
+    router.get('/favourite', function(req, res) {
+        res.sendFile(__dirname+"/views/favourite.html");
+    });
 
     //search movies
     router.get('/search', function(req, res) {
@@ -224,21 +251,33 @@ var routes = function () {
 
     });
 
-    router.post('/favourites', function(req, res){
-        var title = req.body.title;
-        var genre = req.body.genre;
-        var customerId =  res.locals.customer._id;
 
-        db.addFavourite(title, genre, customerId, function(err,favourite)
-            {
-                if (err) {
-                    res.status(500).send("Unable to add");
-                } else {
-                    res.redirect('/favourite');
+    // add to favourite
+    router.post('/favourite', function(req,res)
+    {  
+        var data = req.body;
+        var customerId = res.locals.customer._id;
+       
+        db.addFavourite(data.movie, customerId,function(err, favourite){
+            if (err) {
+                res.status(500).send("Unable to add to Favourite");
+                console.log(err);
+            } else {
+                res.status(200).send("Movie successfully added to Favourite!");
             }
         })
-         
     });
+
+    router.get('/favourite/:customer',function(res,req){
+        var id = req.params.customer;
+        db.getFavouritebyId(id, function(err,customer){
+            if (err) {
+                res.status(500).send("Unable to get Favourite.");
+            } else {
+                res.status(200).send(customer);
+            } 
+        })
+    })
 
     // add movie to the history list
     router.post('/history', function(req,res)

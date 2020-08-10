@@ -20,9 +20,7 @@
        
        <a href="/views/index.html" class="logoutlink">Logout</a>
 
-        <form action="/favourites" method="get">
-            <input type="submit" value="Favourites">
-            </form>
+       <a href="/favourite">View Favourite</a>
 
         <a href="/history">View History</a>
 
@@ -60,7 +58,8 @@
                         data.forEach(function(movie)
                         {
                             $('.movielist').append("<tr> <td>  <a href='/moviepage?id="+movie._id+"'>"+ movie.title + "</a> </td> <td>"+ movie.description + "</td> <td>"+ movie.genre+ "</td> <td>"+ movie.language + "</td> <td>" + movie.ranking+ "</td> <td>" + movie.runningtime +
-                                "</td><td> <form onsubmit='return history();'> <input type='text' id='title' value='"+movie.title+"'> <button type='submit'>Add to history </form> </td> <tr>");
+                                "</td><td> <form onsubmit='return history();'> <input type='text' id='title' value='"+movie.title+"'> <button type='submit'>Add to history </form> </td>" + 
+                                "<td> <form onsubmit='return favourite();'> <input type='text' id='title' value='"+movie.title+"'> <button type='submit'>Add to favourite </form> </td>");
                           
                     }
                 )}
@@ -84,6 +83,29 @@
         ).fail(
             function (err) {
                 alert("Unable to add new movie to the history list")
+                console.log(err);
+            }
+        );
+        return false;
+    }
+
+    function favourite(){
+               var moviename = $("#title").val();
+              
+            $.ajax({
+                url: "/favourite?token="+ sessionStorage.authToken,
+                method: "post",
+                data: {movie: moviename
+                        }
+            }
+            ).done(
+            function (data) {
+               alert("Movie successfully added to favourite!");
+               console.log(data);
+            }
+        ).fail(
+            function (err) {
+                alert("Unable to add to favourite")
                 console.log(err);
             }
         );
