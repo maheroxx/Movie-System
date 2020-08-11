@@ -5,6 +5,9 @@
             #PaymentForm{
                 font-size: 20px;
             }
+            #Price{
+                display: none;
+            }
         </style>
     </head>
     <body>
@@ -16,15 +19,22 @@
         </section><br>
 
         <section id="PaymentForm">
-            <form onsubmit=" return editPayment()">
+            <form >
                 <label for="email">Email:<span id="email"></span></label>
                <br><br>
                 <label for="mobilenumber">Mobile Number:<span id="mobilenumber"></span></label>
                <br><br>
                 <label for="creditcard">Credit Card Number:<span id="creditcard"></span></label>
                <br><br>
-               <label for="price">Premium Price: <span id="price">$30</span>/year</label><br><br>
-                <button type="submit">Proceed to Checkout</button>
+               <label for="price">Premium Price: <span id="mPrice">$30</span>/year</label><br><br>
+                
+            </form>
+        </section>
+
+        <section id="invisibleForm">
+            <form onsubmit=" return checkout()">
+                <input type="text" id="Price" value="$30">
+                <button type="submit">Proceed to checkout</button>
             </form>
         </section>
         
@@ -69,6 +79,32 @@
             );
 
         });
-        </script>
+       
+            function checkout()
+            {
+               var price = $("#Price").val();
+
+               $.ajax({
+                url: "/checkout?token="+ sessionStorage.authToken,
+                method: "post",
+                data: {price : price
+                        }
+            }
+            ).done(
+            function (data) {
+               alert("Checkout success!");
+               console.log(data);
+              
+            }
+        ).fail(
+            function (err) {
+                alert("Unable to checkout...")
+                console.log(err);
+            }
+        );
+        return false;
+            }
+       
+       </script>
     </body>
 </html>

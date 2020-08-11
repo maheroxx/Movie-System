@@ -4,7 +4,8 @@ var customerSchema = {};
 var movieSchema = {};
 var favouriteSchema ={};
 var historySchema = {};
-var customerModel, movieModel, favouriteModel, historyModel;
+var checkoutSchema = {};
+var customerModel, movieModel, favouriteModel, historyModel, checkoutModel;
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
@@ -50,12 +51,23 @@ var database = {
                         type: schema.Types.ObjectId,
                         ref: 'customers'
                     }
+                });
+
+                checkoutSchema = schema({
+                    customer: {
+                        type: schema.Types.ObjectId,
+                        ref: 'customers'
+                    },
+                    price: String
                 })
+
+
                 var connection = mongoose.connection;
                 customerModel = connection.model("customers", customerSchema)
                 movieModel = connection.model("movies", movieSchema);
                 favouriteModel = connection.model("favourite", favouriteSchema);
                 historyModel = connection.model("history", historySchema);
+                checkoutModel = connection.model("checkout", checkoutSchema);
             } else {
                 console.log("Error connecting to Mongo DB");
             }
@@ -142,6 +154,17 @@ var database = {
     getHistory: function(callback)
     {
         historyModel.find({}).populate('customer').exec(callback);
+    },
+
+    checkout: function(cid, p, callback)
+    {
+        var newCheckout = new checkoutModel(
+        {
+            customer: cid,
+            price : p
+
+        });
+        newCheckout.save(callback);
     }
 };
 

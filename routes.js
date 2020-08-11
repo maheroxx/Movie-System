@@ -14,7 +14,8 @@ var routes = function () {
     router.use(function(req,res,next){
         //only check for token if it is PUT, DELETE methods or it is POSTING to events
         if((req.method=="POST" && req.url.includes("/favourite"))||
-             (req.method=="POST" && req.url.includes("/history"))) {
+             (req.method=="POST" && req.url.includes("/history"))||
+             (req.method=="POST"&& req.url.includes("/checkout"))) {
             var token = req.query.token;
             if (token == undefined) {
                 res.status(401).send("No tokens are provided. You are not allowed to perform this action.");
@@ -303,6 +304,34 @@ var routes = function () {
             } else {
                 res.status(200).send(history);
             } 
+        })
+    });
+
+    router.get('/payment/:id', function(req, res)
+    {
+        var id = req.params.id;
+        db.getCustomerById(id, function (err, customer) {
+            if (err) {
+                res.status(500).send("Unable to find a customer with this id");
+            } else {
+                res.status(200).send(customer);
+            }
+        });
+    });
+
+    router.post('/checkout',function(req,res)
+    {
+        var data = req.body;
+        var customerId = res.locals.customer._id;
+        db.checkout(customerId, data.price,  function(err,checkout)
+        {
+            if(err){
+                res.status(500).send("Unable to checkout your payment.");
+                console.log(err);
+            }
+            else{
+                res.status(200).send("You have successfully checkout your order!");
+            }
         })
     })
     return router;
