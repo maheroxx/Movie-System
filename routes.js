@@ -83,6 +83,11 @@ var routes = function () {
         res.sendFile(__dirname+"/views/favourite.html");
     });
 
+    //payment
+    router.get('/payment', function(req, res) {
+        res.sendFile(__dirname+"/views/payment.html");
+    });
+
     //search movies
     router.get('/search', function(req, res) {
         res.sendFile(__dirname+"/views/search.html");
