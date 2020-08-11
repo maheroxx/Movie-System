@@ -19,9 +19,12 @@
         </section><br>
        <a href="/favourite">View Favourite</a><br>
         <a href="/history">View History</a><br>
+        <section id="purchase">
+
+        </section>
         <a href="/search">Search</a><br>
         <a href="/views/index.html" class="logoutlink">Logout</a>
-        
+
         <section class="movies">
             <h2>Movie List</h2>
             <table border="1px black"  class="movielist">
@@ -39,6 +42,7 @@
         </section>
 
         <script>
+
             $(document).ready(function(){
                 $.ajax({
                     url: "/movies",
@@ -106,6 +110,7 @@
     }
           
             $(document).ready(function(){
+
                 $(".logoutlink").click(function(e){
                     e.preventDefault();
 
@@ -122,6 +127,24 @@
                     })
                 })
             })
-        </script>
+            $(document).ready(function(){
+    $.ajax({
+        url: "/profile",
+        method: "get"
+    })
+    .done(
+        function(data){
+        
+            data.forEach(function(customer)
+            {
+                $('#purchase').append("<a href ='payment?id="+ customer._id +"'>View Profile </a>")
+            })
+        }
+    )
+})
+       
+       </script>
+
+
     </body>
 </html>

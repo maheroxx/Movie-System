@@ -1,23 +1,74 @@
 <html>
     <head>
         <title>Payment</title>
+        <style>
+            #PaymentForm{
+                font-size: 20px;
+            }
+        </style>
     </head>
     <body>
         <h1>Payment</h1>
 
         <br>
-        <section id="editPayment">
+        <section class="profile">
+
+        </section><br>
+
+        <section id="PaymentForm">
             <form onsubmit=" return editPayment()">
-                <label for="email">Email:</label>
-                <input type="email" id="editemail" name="email"><br><br>
-                <label for="mobilenumber">Mobile Number:</label>
-                <input type="number" id="editmobilenumber" name="mobilenumber"><br><br>
-                <label for="creditcard">Credit Card Number:</label>
-                <input type="text" id="editcreditcard" name="creditcard"><br><br><br>
+                <label for="email">Email:<span id="email"></span></label>
+               <br><br>
+                <label for="mobilenumber">Mobile Number:<span id="mobilenumber"></span></label>
+               <br><br>
+                <label for="creditcard">Credit Card Number:<span id="creditcard"></span></label>
+               <br><br>
+               <label for="price">Premium Price: <span id="price">$30</span>/year</label><br><br>
                 <button type="submit">Proceed to Checkout</button>
             </form>
         </section>
         
         <script src='../js/jquery-3.5.0.min.js'></script>
+      
+        <script>
+            $(document).ready(function(){
+                $.ajax({
+                    url: "/profile",
+                    method: "get"
+                })
+                .done(
+                    function(data){
+                    
+                        data.forEach(function(customer)
+                        {
+                        
+                            $('.profile').append("<a href ='profilepage?id="+ customer._id +"'>Change your details </a>")
+                        })
+                    }
+                )
+            })
+            var customerId = 0;
+            $(document).ready(function() {
+            var urlParams = new URLSearchParams(window.location.search);
+            customerId = urlParams.get('id');
+
+            $.ajax({
+                url: "/profile/" + customerId,
+                method: "get"
+            }).done(
+                function (data) {
+                    $('#email').append(data.email);
+                    $('#mobilenumber').append(data.mobilenumber);
+                    $('#creditcard').append(data.creditcard);
+                
+                }
+            ).fail(
+                function (err) {
+                    console.log(err.responseText);
+                }
+            );
+
+        });
+        </script>
     </body>
 </html>
