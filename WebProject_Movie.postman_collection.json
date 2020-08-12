@@ -1,0 +1,415 @@
+{
+	"info": {
+		"_postman_id": "b4fc0b0d-7a5f-46cc-ae2b-30126b1b5189",
+		"name": "WebProject_Movie",
+		"description": "Web 2.0 Project ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "test2",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "test2@mail.com",
+							"type": "text"
+						},
+						{
+							"key": "mobilenumber",
+							"value": "11111111",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test2",
+							"type": "text"
+						},
+						{
+							"key": "creditcard",
+							"value": "123412341234",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"register"
+					]
+				},
+				"description": "A request that user registers with his information"
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "test2",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/loginform",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"loginform"
+					]
+				},
+				"description": "A request when user login with their account\r\nIf login successful, it returns a message \"Login successful!\", if not, it returns a message \"Login unsucessful, please try again\"\r\n\r\nA token will be given once the users has login successfully"
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/logout?token=952bb48b29114358f3cd9c552eb8c4c7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"logout"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "952bb48b29114358f3cd9c552eb8c4c7",
+							"description": "please copy the token after doing the login request "
+						}
+					]
+				},
+				"description": "User logouts using his token.\r\nIf no token, it returns a message \"No token is provided..\"\r\nIf invalid token, it returns a message\" Invalid token...\""
+			},
+			"response": []
+		},
+		{
+			"name": "Show all movies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show individual movie by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/movie/5f0bef5b9dc6c53defb54118",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"movie",
+						"5f0bef5b9dc6c53defb54118"
+					]
+				},
+				"description": "A request to show each movie after clicking the movie title of each movie in the index page"
+			},
+			"response": []
+		},
+		{
+			"name": "Profile",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/profile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"profile"
+					]
+				},
+				"description": "A request to show all users' information"
+			},
+			"response": []
+		},
+		{
+			"name": "Show each profile by user's ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/profile/5f30f642c282f5803ca4419e",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"profile",
+						"5f30f642c282f5803ca4419e"
+					]
+				},
+				"description": "A request to show one user's information"
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Profile",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "id",
+							"value": "5f3174bc74dca178f48f7084",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "test2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/profile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"profile"
+					]
+				},
+				"description": "A request that allows user to change his information"
+			},
+			"response": []
+		},
+		{
+			"name": "Add to Favourite",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "movie",
+							"value": "The Sky",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/favourite?token=ef4c3e2bc49f42709cc538e0addb4ae9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"favourite"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "ef4c3e2bc49f42709cc538e0addb4ae9"
+						}
+					]
+				},
+				"description": "Allow user to add movie to the favourite list"
+			},
+			"response": []
+		},
+		{
+			"name": "Add to History",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "movie",
+							"value": "The Sky",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/history?token=ef4c3e2bc49f42709cc538e0addb4ae9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"history"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "ef4c3e2bc49f42709cc538e0addb4ae9"
+						}
+					]
+				},
+				"description": "Allows user to add the movie to history list"
+			},
+			"response": []
+		},
+		{
+			"name": "View History List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/historylist",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"historylist"
+					]
+				},
+				"description": "show all the data that was added to the history collection"
+			},
+			"response": []
+		},
+		{
+			"name": "Checkout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "price",
+							"value": "30",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/checkout?token=f557f6ed592beff2933b9236de020940",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"checkout"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "f557f6ed592beff2933b9236de020940"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Movie by Title",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "My Spy",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/movie/search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"movie",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View Favourite List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/favouritelist",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"favouritelist"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

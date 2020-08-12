@@ -6,7 +6,7 @@
     <body>
         <h1>EigaMovie</h1>
 
-        <form action="/movie/search" method="POST" >
+        <form action="movie/search" method="POST" >
             <input type="text" name="title" id="title">
             <input type="submit" id="get_btn" value="Search">
         </form>
@@ -27,7 +27,7 @@
         </section>
         <script src="../js/jquery-3.5.0.min.js"></script>
         <script>
-           $("#get_btn").click(function(){
+          function search(){
                var title = $("#title").val();
                 $.ajax({
                     url: "/movie/search",
@@ -41,7 +41,8 @@
                            
                     }
                 )
-            })
+                return false;
+            }
         
             
     

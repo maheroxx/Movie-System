@@ -307,18 +307,7 @@ var routes = function () {
         })
     });
 
-    router.get('/payment/:id', function(req, res)
-    {
-        var id = req.params.id;
-        db.getCustomerById(id, function (err, customer) {
-            if (err) {
-                res.status(500).send("Unable to find a customer with this id");
-            } else {
-                res.status(200).send(customer);
-            }
-        });
-    });
-
+    
     router.post('/checkout',function(req,res)
     {
         var data = req.body;
@@ -334,6 +323,7 @@ var routes = function () {
             }
         })
     })
+
     return router;
 };
 module.exports = routes();

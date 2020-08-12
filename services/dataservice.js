@@ -165,7 +165,7 @@ var database = {
 
         });
         newCheckout.save(callback);
-    }
+    },
 };
 
 module.exports = database;
